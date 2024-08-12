@@ -5,45 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DOB CALCULATION</title>
     <style>
-        body{
+        body {
             text-align: center;
         }
-        .container{
+        .container {
             padding-top: 25px;
-        
         }
-        .btn{
-            text-align:center;
+        .btn {
             width: auto;
-            margin:8px;
-            padding:content;
-
+            margin: 8px;
+            padding: 10px;
+            justify-content: center;
+            align-items: center;
+            height: 10vh;
+            background-color: #1ce63d;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
         }
-        
     </style>
 </head>
 <body>
     <div class="container">
         <div>
-            <label for ="dob"> Date of Birth</label>
-             <input type="date" name ="dob" id="dob" calss="form-inputs"/>      
+            <label for="dob">Date of Birth</label>
+            <input type="date" name="dob" id="dob" class="form-inputs"/>
         </div>
-        <button class="btn" >calculate date</button>
+        <button class="btn" onclick="calculate()">Calculate Date</button>
+        <div id="display-data"></div>
     </div>
     <script>
-        function calculate(){
-            let input= document.getElementById("dob").value;
-            if(Date.parse(input)){
-                let inputDate=new Date(input);
+        function calculate() {
+            let input = document.getElementById("dob").value;
+            if (input) {
+                let inputDate = new Date(input);
                 let currentDate = new Date();
+                let millisecDiff = currentDate.getTime() - inputDate.getTime();
+                let secDiff = Math.floor(millisecDiff / 1000);
+                let minDiff = Math.floor(secDiff / 60);
+                let hrDiff = Math.floor(minDiff / 60);
+                let dayDiff = Math.floor(hrDiff / 24);
+
                 document.getElementById("display-data").innerHTML = `
-                Input Value: ${input} <br>
-                current Date: ${currentDate}`;
+                    Input Value: ${input} <br>
+                    Current Date: ${currentDate.toDateString()} <br>
+                    Day Difference: ${dayDiff} <br>
+                    Hour Difference: ${hrDiff} <br>
+                    Minute Difference: ${minDiff} <br>
+                    Second Difference: ${secDiff} <br>
+                    Millisecond Difference: ${millisecDiff} <br>
+                `;
+            } else {
+                document.getElementById("display-data").innerHTML = "Select a valid date";
             }
-        
-            
         }
     </script>
-
 </body>
 </html>
